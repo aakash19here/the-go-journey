@@ -13,15 +13,15 @@ func main() {
 
 	fmt.Println("Name before", p.Name)
 
-	// reference to the variable / address of person
-	modifyName(&p)
+	p.modifyName()
 
 	fmt.Println("Name after", p.Name)
 
 }
 
+// method on person struct or called as method receiver
 // pointer to person
-func modifyName(p *Person) {
+func (p *Person) modifyName() {
 	p.Name = "Akku"
 	fmt.Println("Name inside scope", p.Name)
 }
