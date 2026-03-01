@@ -8,6 +8,17 @@ type Person struct {
 	Email string
 }
 
+type Contact struct {
+	Name    string
+	Number  string
+	Address Address
+}
+
+type Address struct {
+	Street string
+	City   string
+}
+
 func main() {
 	p := Person{
 		Name:  "Aakash",
