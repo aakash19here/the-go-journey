@@ -1,8 +1,6 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
 // 1. Define your struct here
 type Book struct {
@@ -35,7 +33,7 @@ func main() {
 		},
 	}
 
-	ToggleStatus(library)
+	ToggleStatus(&library)
 
 	for _, value := range library {
 		if value.IsBorrowed {
@@ -45,10 +43,9 @@ func main() {
 
 }
 
-func ToggleStatus(lib []Book) []Book {
-	for i := range lib {
-		lib[i].IsBorrowed = !lib[i].IsBorrowed
+func ToggleStatus(lib *[]Book) {
+	for i := range *lib {
+		book := &(*lib)[i]
+		book.IsBorrowed = !book.IsBorrowed
 	}
-
-	return lib
 }
