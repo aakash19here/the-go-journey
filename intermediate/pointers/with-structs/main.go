@@ -32,9 +32,9 @@ func main() {
 }
 
 /*
-	- We know that as soon as the function call ends it gets removed from the stack and the active frame points back to main frame
-	Where does heap allocation comes into play ?
-	- Lets say we return the memory address of a variable created. Once the function is called it would have an address but since the frame is ejected from the stack where does now the address point to ?
-	- The answer is heap , whenever go compiler notice that there would be something wrong with the stack popping up , it allocates the heap memory
-	- Although using too much heap allocation can cause performance bottlenecks
+	- A function's stack frame goes away after the function returns.
+	- So if we return the address of a local value, that value cannot stay only in that stack frame.
+	- In this case, Go's escape analysis decides the value escapes and allocates it on the heap.
+	- Returning a pointer does not always mean heap allocation, but when a value must outlive the function, heap allocation is a common result.
+	- Excess heap allocation can add GC pressure and hurt performance.
 */
