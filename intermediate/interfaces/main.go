@@ -16,6 +16,10 @@ type SmsNotifier struct {
 	Contact string
 }
 
+type SlackNotifier struct {
+	SlackId string
+}
+
 func (e *EmailNotifier) Send(message string) error {
 	fmt.Printf("Email %s is sent to %s \n", message, e.Email)
 	return nil
@@ -23,6 +27,11 @@ func (e *EmailNotifier) Send(message string) error {
 
 func (s *SmsNotifier) Send(message string) error {
 	fmt.Printf("SMS %s is sent to %s \n", message, s.Contact)
+	return nil
+}
+
+func (s *SlackNotifier) Send(message string) error {
+	fmt.Printf("Slack Message %s is sent to %s \n", message, s.SlackId)
 	return nil
 }
 
@@ -42,4 +51,8 @@ func main() {
 	smsService := NotificationService{&SmsNotifier{Contact: "+044234324"}}
 
 	smsService.Notify("Hello From Email")
+
+	slackService := NotificationService{&SlackNotifier{SlackId: "slack_234"}}
+
+	slackService.Notify("push the pr")
 }
