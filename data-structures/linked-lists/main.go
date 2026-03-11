@@ -12,7 +12,7 @@ type LinkedList struct {
 	Length int
 }
 
-func (l *LinkedList) InsertAtEnd(n *Node) {
+func (l *LinkedList) InsertAtStart(n *Node) {
 	// copy the old head node
 	secondNode := l.Head
 
@@ -26,13 +26,13 @@ func (l *LinkedList) InsertAtEnd(n *Node) {
 	l.Length++
 }
 
-func (l *LinkedList) Display() {
+func (l LinkedList) Display() {
 	current := l.Head    // Start from the head
 	for current != nil { // Loop until the current node is nil (end of list)
 		fmt.Printf("%d -> ", current.Data) // Print the current node's data
 		current = current.Next             // Move to the next node
 	}
-	fmt.Println("nil") // Indicate the end of the list
+	fmt.Println("nil")
 }
 
 func main() {
@@ -48,9 +48,9 @@ func main() {
 		Data: 3,
 	}
 
-	list.InsertAtEnd(Node1)
-	list.InsertAtEnd(Node2)
-	list.InsertAtEnd(Node3)
+	list.InsertAtStart(Node1)
+	list.InsertAtStart(Node2)
+	list.InsertAtStart(Node3)
 
 	list.Display()
 }
