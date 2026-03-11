@@ -32,7 +32,37 @@ func (l LinkedList) Display() {
 		fmt.Printf("%d -> ", current.Data) // Print the current node's data
 		current = current.Next             // Move to the next node
 	}
-	fmt.Println("nil")
+	fmt.Printf("nil, ")
+	fmt.Printf("length = %d \n", l.Length)
+}
+
+func (l *LinkedList) DecrementLength() {
+	l.Length--
+}
+
+func (l *LinkedList) DeleteNode(n *Node) {
+	if n == nil || l.Head == nil {
+		return
+	}
+
+	if l.Head == n {
+		secondNode := l.Head.Next
+		l.Head = secondNode
+		l.DecrementLength()
+		return
+	}
+
+	currentHead := l.Head
+	for currentHead != nil {
+		if currentHead.Next == n {
+			currentHead.Next = n.Next
+			l.DecrementLength()
+			return
+		}
+
+		currentHead = currentHead.Next
+	}
+
 }
 
 func main() {
@@ -52,5 +82,7 @@ func main() {
 	list.InsertAtStart(Node2)
 	list.InsertAtStart(Node3)
 
+	list.Display()
+	list.DeleteNode(Node1)
 	list.Display()
 }
