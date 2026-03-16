@@ -3,8 +3,25 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"io"
 	"log"
 )
+
+func main() {
+	var wc WriterCloser = NewBufferedWriterCloser()
+	wc.Write([]byte("Hello Youtube listeners, this is a test  "))
+	wc.Close()
+
+	// this will fail cause wc does not implement ioReader
+	r, ok := wc.(io.Reader)
+
+	if ok {
+		fmt.Printf("r %p \n", r)
+	} else {
+		fmt.Println("Conversion failed")
+	}
+
+}
 
 type Writer interface {
 	Write([]byte) (int, error)
@@ -66,11 +83,4 @@ func (bwc *BufferedWriterCloser) Close() error {
 	}
 
 	return nil
-}
-
-func main() {
-	var wc WriterCloser = NewBufferedWriterCloser()
-	wc.Write([]byte("Hello Youtube listeners, this is a test  "))
-	wc.Close()
-
 }
