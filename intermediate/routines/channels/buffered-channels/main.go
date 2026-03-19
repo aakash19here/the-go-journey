@@ -9,6 +9,7 @@ var wg = sync.WaitGroup{}
 
 func main() {
 	// 50 is a buffer , create channel to create interal datastore to store 50 integers
+	// why buffer is needed ? lets say you send more than receiving , there must be a place where you store the additional values
 	ch := make(chan int, 50)
 
 	wg.Add(2)
@@ -43,7 +44,7 @@ func main() {
 
 		/*
 			- Close means that the routine is done sending the values and by that the above receiver can know when to end the for loop
-			- When you close the channel make sure you don't send data after that otherwise the we'll get a panic
+			- When you close the channel make sure you don't send data after that otherwise the compiler will panic
 		*/
 		close(ch)
 		wg.Done()
