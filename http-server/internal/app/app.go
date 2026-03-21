@@ -5,11 +5,11 @@ import (
 	"os"
 )
 
-const PORT = ":8080"
+const PORT int = 8080
 
 type Application struct {
 	Logger *log.Logger
-	Port   string
+	Port   int
 }
 
 // app constructor
