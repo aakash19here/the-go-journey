@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/aakash19here/the-go-journey/internal/app"
+	"github.com/aakash19here/the-go-journey/internal/routes"
 )
 
 func main() {
@@ -22,9 +23,11 @@ func main() {
 		panic(err)
 	}
 
-	http.HandleFunc("/health", HealthCheck)
+	r := routes.SetupRoutes(app)
+
 	server := &http.Server{
 		Addr:         fmt.Sprintf(":%d", port),
+		Handler:      r,
 		IdleTimeout:  time.Minute,
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 30 * time.Second,
@@ -37,8 +40,4 @@ func main() {
 	if err != nil {
 		app.Logger.Fatal(err)
 	}
-}
-
-func HealthCheck(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "Status is Available \n")
 }
