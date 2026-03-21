@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 
@@ -16,6 +17,7 @@ func main() {
 
 	app.Logger.Println("We are starting the App")
 
+	http.HandleFunc("/health", HealthCheck)
 	server := &http.Server{
 		Addr:         app.Port,
 		IdleTimeout:  time.Minute,
@@ -28,4 +30,8 @@ func main() {
 	if err != nil {
 		app.Logger.Fatal(err)
 	}
+}
+
+func HealthCheck(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprint(w, "Status is Available \n")
 }
